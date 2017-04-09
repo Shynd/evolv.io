@@ -205,6 +205,7 @@ public class Creature extends SoftBody {
 			loseEnergy(-attemptedAmount * Configuration.EAT_ENERGY * timeStep);
 		} else {
 			Tile coveredTile = getRandomCoveredTile();
+			// TODO can pow be replaced with something faster?
 			double foodToEat = coveredTile.getFoodLevel()
 					* (1 - Math.pow((1 - Configuration.EAT_SPEED), amount * timeStep));
 			if (foodToEat > coveredTile.getFoodLevel()) {
@@ -258,7 +259,7 @@ public class Creature extends SoftBody {
 
 	public void see() {
 		for (int k = 0; k < Configuration.NUM_EYES; k++) {
-			eyes.get(k).see();;
+			eyes.get(k).see();
 			visionResults[k * 3] = eyes.get(k).getEyeResult().hue;
 			visionResults[k * 3 + 1] = eyes.get(k).getEyeResult().saturation;
 			visionResults[k * 3 + 2] = eyes.get(k).getEyeResult().brightness;

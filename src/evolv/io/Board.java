@@ -200,7 +200,7 @@ public class Board {
 			 * actions
 			 */
 			String[] buttonTexts = { "Brain Control",
-					"Spawn Chance " + EvolvioColor.nf((float) spawnChance, 0, 2) + "%", "Screenshot now",
+					"Spawn Chance " + EvolvioColor.nf(spawnChance, 0, 2) + "%", "Screenshot now",
 					"-   Image every " + EvolvioColor.nf((float) imageSaveInterval, 0, 2) + " years   +",
 					"Text file now",
 					"-    Text every " + EvolvioColor.nf((float) textSaveInterval, 0, 2) + " years    +",
@@ -215,6 +215,7 @@ public class Board {
 				this.evolvioColor.fill(buttonColor);
 				this.evolvioColor.rect(x, y, 220, 40);
 				if (i >= 2 && i < 6) {
+					// TODO can pow be replaced with something faster?
 					double flashAlpha = 1.0f
 							* Math.pow(0.5f, (year - fileSaveTimes[i - 2]) * Configuration.FLASH_SPEED);
 					this.evolvioColor.fill(0, 0, 1, (float) flashAlpha);
