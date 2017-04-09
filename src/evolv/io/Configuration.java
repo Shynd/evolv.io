@@ -39,16 +39,12 @@ public class Configuration {
 	 * Would like to add Brain Height. Will need to rework Brain to allow for
 	 * configuration
 	 */
-	/*
-	 * TODO can we consolidate the mutability, variability and mutate power into
-	 * fewer?
-	 */
-	public static final float AXON_START_MUTABILITY = 0.0005f;
-	public static final double STARTING_AXON_VARIABILITY = 1.0;
 
 	// Axon
-	public static final double MUTABILITY_MUTABILITY = 0.7;
-	public static final int MUTATE_POWER = 9;
+	public static final double AXON_START_MUTATION_RATE = 0.0005;
+	public static final double MUTATION_RATE_MUTABILITY = 0.01;
+	public static final double MAXIMUM_WEIGHT = 10;
+	public static final double MAXIMUM_MUTATION_RATE = 0.1;
 
 	// Creature
 	public static final double ACCELERATION_ENERGY = 0.18;

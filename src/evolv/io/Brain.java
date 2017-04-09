@@ -2,6 +2,8 @@ package evolv.io;
 
 import java.util.List;
 
+import evolv.io.util.MathUtil;
+
 public class Brain {
 	private static final int BRAIN_HEIGHT = Configuration.NUM_EYES * 3 + Configuration.MEMORY_COUNT + 6;
 	private static final String[] INPUT_LABELS = new String[BRAIN_HEIGHT];
@@ -56,8 +58,7 @@ public class Brain {
 			for (int x = 0; x < Configuration.BRAIN_WIDTH - 1; x++) {
 				for (int y = 0; y < BRAIN_HEIGHT; y++) {
 					for (int z = 0; z < BRAIN_HEIGHT - 1; z++) {
-						double startingWeight = (Math.random() * 2 - 1) * Configuration.STARTING_AXON_VARIABILITY;
-						axons[x][y][z] = new Axon(startingWeight, Configuration.AXON_START_MUTABILITY);
+						axons[x][y][z] = Axon.randomAxon();
 					}
 				}
 			}
@@ -172,7 +173,7 @@ public class Brain {
 				if (x == Configuration.BRAIN_WIDTH - 1) {
 					neurons[x][y] = total;
 				} else {
-					neurons[x][y] = sigmoid(total);
+					neurons[x][y] = MathUtil.sigmoid(total);
 				}
 			}
 		}
@@ -191,10 +192,6 @@ public class Brain {
 		this.evolvioColor.stroke(neuronFillColor(axons[x1][y1][y2].getWeight() * neurons[x1][y1]));
 		this.evolvioColor.line(x1 * scaleUp * NEURON_SPACING + NEURON_OFFSET_X, y1 * scaleUp + NEURON_OFFSET_Y,
 				x2 * scaleUp * NEURON_SPACING + NEURON_OFFSET_X, y2 * scaleUp + NEURON_OFFSET_Y);
-	}
-
-	private double sigmoid(double input) {
-		return 1.0f / (1.0f + Math.exp(-input));
 	}
 
 	private int neuronFillColor(double d) {

@@ -1,5 +1,7 @@
 package evolv.io;
 
+import evolv.io.util.MathUtil;
+
 public class Tile {
 	private final EvolvioColor evolvioColor;
 	private final Board board;
@@ -88,15 +90,19 @@ public class Tile {
 			} else {
 				if (growthChange > 0) {
 					// Food is growing. Exponentially approach maxGrowthLevel.
+					// TODO do we need to use exponential here? is there a
+					// faster alternative?
 					if (foodLevel < Configuration.MAX_GROWTH_LEVEL) {
 						double newDistToMax = (Configuration.MAX_GROWTH_LEVEL - foodLevel)
-								* Math.exp(-growthChange * fertility * Configuration.FOOD_GROWTH_RATE);
+								* MathUtil.fastExp(-growthChange * fertility * Configuration.FOOD_GROWTH_RATE);
 						double foodGrowthAmount = (Configuration.MAX_GROWTH_LEVEL - newDistToMax) - foodLevel;
 						addFood(foodGrowthAmount, climateType, false);
 					}
 				} else {
 					// Food is dying off. Exponentially approach 0.
-					removeFood(foodLevel - foodLevel * Math.exp(growthChange * Configuration.FOOD_GROWTH_RATE), false);
+					// TODO do we need to use exponential here? is there a
+					// faster alternative?
+					removeFood(foodLevel - foodLevel * MathUtil.fastExp(growthChange * Configuration.FOOD_GROWTH_RATE), false);
 				}
 				/*
 				 * if (growableTime > 0) { if (foodLevel < maxGrowthLevel) {
