@@ -135,7 +135,7 @@ public class EvolvioColor extends PApplet {
 		evoBoard.drawUI(Configuration.SCALE_TO_FIXBUG, zoom, Configuration.TIME_STEP, windowHeight, 0, windowWidth,
 				windowHeight);
 
-		evoBoard.fileSave();
+		//evoBoard.fileSave();
 		prevMouseX = mouseX;
 		prevMouseY = mouseY;
 	}
