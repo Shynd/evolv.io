@@ -1,8 +1,6 @@
 package evolv.io;
 
 public class Axon {
-	private static final double MUTATE_MULTI = Math.pow(0.5f, Configuration.MUTATE_POWER);
-
 	private final double weight;
 	private final double mutationRate;
 
@@ -10,20 +8,40 @@ public class Axon {
 		this.weight = w;
 		this.mutationRate = m;
 	}
-
-	/*
-	 * TODO pow is expensive, use Math.random(), do the same with the random()
-	 * method
-	 */
+	
+	public static Axon randomAxon() {
+		return new Axon(randomBetweenPlusMinus1(), Configuration.AXON_START_MUTATION_RATE);
+	}
+	
 	public Axon mutateAxon() {
-		double mutabilityMutate = Math.pow(0.5f, pmRan() * Configuration.MUTABILITY_MUTABILITY);
-		return new Axon(weight + random() * mutationRate / MUTATE_MULTI, mutationRate * mutabilityMutate);
+		double newWeight = mutate(weight, mutationRate, Configuration.MAXIMUM_WEIGHT);
+		double newMutationRate = mutate(mutationRate, Configuration.MUTATION_RATE_MUTABILITY,
+										Configuration.MAXIMUM_MUTATION_RATE);
+		return new Axon(newWeight, newMutationRate);
 	}
 
 	public double getWeight() {
 		return weight;
 	}
 
+	private static double mutate(double input, double mutateRate, double maximumBounds) {
+		double mutatedOutput = input;
+		if (Math.random() < mutateRate)
+		{
+			double multiple = randomBetweenPlusMinus1();
+			mutatedOutput *= multiple;
+		}
+		if (Math.abs(mutatedOutput) > maximumBounds) {
+			mutatedOutput = Math.signum(mutatedOutput) * maximumBounds;
+		}
+		return mutatedOutput;
+	}
+	
+	private static double randomBetweenPlusMinus1() {
+		return Math.random() * 2 - 1;
+	}
+	
+	
 	private double random() {
 		return Math.pow(pmRan(), Configuration.MUTATE_POWER);
 	}
