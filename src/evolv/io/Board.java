@@ -146,7 +146,7 @@ public class Board {
 		this.evolvioColor.textSize(20);
 		this.evolvioColor.text("Population: " + creatures.size(), 10, 80);
 		String[] seasons = { "Winter", "Spring", "Summer", "Autumn" };
-		this.evolvioColor.text(seasons[(int) (getSeason() * 4)] + "\nSeed: " + randomSeed, seasonTextXCoor, 30);
+		this.evolvioColor.text("Season: " + seasons[(int) (getSeason() * 4)] + "\nSeed: " + randomSeed, seasonTextXCoor, 30);
 
 		if (selectedCreature == null) {
 			Collections.sort(creatures, CREATURE_COMPARATORS[sortMetric]);
